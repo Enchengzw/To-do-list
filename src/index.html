@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant_page</title>
+    <title>To-do</title>
 </head>
 <body>
-    <nav class="sidebar">
+    <nav class="side_bar">
         <div class="user">
-            <img src="" alt="">
-            <div>User@</div>
+            <img class="user_img" src="<%= require('./User.svg') %>" alt="My Image">
+            <div class="username">User@</div>
         </div>
         <div class="side_body">
             <div class="side_item" id="today">Today</div>
-            <div class="side_item" id="week"></div>
+            <div class="side_item" id="week">This Week</div>
             <div class="side_item" id="project">
                 <div>My Project</div>
-                <button class="add"></button>
+                <button class="add">+</button>
             </div>
-            <div class="side_item" id="project_list"></div>
+            <div class="project_list">
+                <div class="project_item">Test</div>
+            </div>
         </div>
     </nav>
-    <div id="content"></div>
+    <div class="content"></div>
 </body>
 </html>
