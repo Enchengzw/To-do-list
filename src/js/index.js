@@ -47,8 +47,18 @@ function Task(title, description, dueDate, priority, status) {
     return {title, description, dueDate, priority, status};
 }
 
-week_tasks.push([Task('testsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done')]);
+week_tasks.push([Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done')]);
 week_tasks[0].push(Task('test', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
+week_tasks[0].push(Task('testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done'));
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
@@ -57,4 +67,8 @@ week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 
 
-This_week.addEventListener('click', display_week(week_tasks, week, body));
+This_week.addEventListener('click', () => {
+    display_week(week_tasks, week, body);
+});
+
+export {Task}

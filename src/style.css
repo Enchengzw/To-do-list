@@ -4,6 +4,14 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	scrollbar-width: thin;
+	scrollbar-color: lightgray #f1f1f1;
+}
+
+textarea {
+	padding: 10px;
+	font-size: 1.5em;
+	resize: none;
 }
 
 html, body {
@@ -30,7 +38,7 @@ body {
 	width: 200px;
 	height: 100%;
 	position: fixed;
-	background-color: blue;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 }
@@ -57,9 +65,18 @@ body {
 }
 
 .side_item {
+	width: 100%;
 	font-size: 1.5em;
 	margin-bottom: 15px;
 	padding-left: 30px;
+}
+
+.side_item:hover .add {
+	background-color: lightblue;
+}
+
+.side_item:hover {
+	background-color: lightblue;
 }
 
 #project {
@@ -74,7 +91,7 @@ body {
 .add {
 	padding-top: 5px;
 	font-size: 1.5em;
-	background-color: blue;
+	background-color: white;
 	border-style: none;
 }
 
@@ -84,14 +101,17 @@ body {
 }
 
 .content {
+	height: 100%;
 	display: flex;
 	flex-direction: row;
-	padding: 10px;
+	flex: 1;
+	padding: 25px;
 	padding-left: 200px;
 	background: url(./Background.jpg) no-repeat center center fixed;
 }
 
 .list {
+	max-height: calc(100% - 10px);
 	background-color: white;
 	border-radius: 20px;
 	width: 300px;
@@ -103,19 +123,28 @@ body {
 	padding: 10px;
 }
 
+.task_list {
+	overflow-y: auto;
+}
+
 .task {
+	max-height: 100%;
 	display: flex;
 	flex: 1;
 	flex-direction: row;
 	align-items: center;
 	border-radius: 5px;
 	border-style: none;
-	box-shadow: 0px 0px 2px 2px rgba(156, 156, 156, 0.75);
+	box-shadow: 0px 0px 1px 1px rgba(156, 156, 156, 0.75);
 	margin: 10px;
 }
 
+.task:hover {
+	box-shadow: 0px 0px 5px 5px rgba(156, 156, 156, 0.75);
+}
+
 .task_item {
-	margin: 5px;
+	margin: 10px;
 }
 
 .add_task {
@@ -127,6 +156,9 @@ body {
 
 .week_title {
 	align-self: center;
+	font-size: 1em;
+	font-weight: bold;
+	margin-bottom: 15px;
 }
 
 div.task_item {
@@ -134,4 +166,34 @@ div.task_item {
 	flex-direction: row;
 	flex: 1;
 	flex-wrap: wrap;
+	word-break: break-all;
+}
+.dialog_box {
+	padding: 30px;
+	display: grid;
+	grid-template-rows: 0.5fr 2fr 0.5fr 5fr 0.5fr;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: rgb(240, 240, 240);
+	height: 700px;
+	width: 600px;
+	border-radius: 30px;
+	transform: translate(-50%, -50%);
+	border-style: none;
+}
+
+.dialog_box > * {
+	margin: 5px;
+}
+
+.dialog_title, .dialog_description {
+	font-size: 1.5em;
+	font-weight: bold;
+	justify-self: center;
+}
+
+.dialog_title_body, .dialog_description_body {
+	border-radius: 5px;
+	border-width: 1px;
 }
