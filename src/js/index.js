@@ -1,15 +1,18 @@
 import '../style.css';
 import { add, addDays, startOfToday,  } from 'date-fns';
-import {display_week} from './dom.js';
+import {display_one, display_all, new_to_do} from './dom.js';
 
 const content = document.querySelector('.content');
 const Today = document.getElementById('today');
 const This_week = document.getElementById('week');
 const add_button = document.querySelector('.add');
 const body = document.body;
+const project_list = document.querySelector('.project_list');
+const my_projects = document.getElementById('project');
 
 const week = next_days();
 const week_tasks = [];
+const projects_titles = [];
 const projects = [];
 
 function choose_day(integer)
@@ -64,11 +67,23 @@ week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
-week_tasks.push([Task('test', 'test', startOfToday(), 'low', 'done')]);
+week_tasks.push([]);
 
 
 This_week.addEventListener('click', () => {
-    display_week(week_tasks, week, body);
+    display_all(week_tasks, week, body);
 });
+
+Today.addEventListener('click', () => {
+    display_one(week_tasks[0], week[0], body);
+});
+
+add_button.addEventListener('click', () => {
+    new_to_do(projects, projects_titles, project_list, body);
+})
+
+my_projects.addEventListener('click', () => {
+  display_all(projects, projects_titles, body);
+})
 
 export {Task}
