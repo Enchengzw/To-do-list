@@ -8,7 +8,7 @@ function create_element_with_class(element, classname)
     return new_element;
 }
 
-function create_task_dom(Task) {
+function create_task_dom(Task, to_do_index) {
     let new_task = create_element_with_class('div', 'task');
     let title =  create_element_with_class('div', 'task_item');
     title.innerHTML = Task.title;;
@@ -22,23 +22,50 @@ function create_task_dom(Task) {
     container.append(check_button, delete_button)
     new_task.appendChild(container);
     new_task.appendChild(title);
-
+    new_task.setAttribute('draggable', 'true');
     return new_task;
 }
 
-function create_day_dom(day, weekday) {
+function create_day_dom(to_do, to_do_title, to_do_array, to_do_index) {
     let list =  create_element_with_class('div', 'list');
 
     let title =  create_element_with_class('div', 'week_title');
-    title.innerHTML = weekday;
+    title.innerHTML = to_do_title;
     list.appendChild(title);
 
     let body =  create_element_with_class('div', 'task_list');
-
+    let old_list;
+    body.setAttribute('to_do_index', to_do_index);
+    body.addEventListener('dragover', event => {
+        event.preventDefault();
+        let afterElement = get_drag_after_element(body, event.clientY);
+        let drag_item = document.querySelector('.dragging');
+        old_list = drag_item.parentElement;
+        if (afterElement == null) {
+            body.appendChild(drag_item);
+        } else {
+            body.insertBefore(drag_item, afterElement);
+        }
+    })
     let index = 0;
-    day.forEach(task => {
+    to_do.forEach(task => {
         let new_task = create_task_dom(task);
         new_task.setAttribute('index', index);
+        new_task.addEventListener('dragstart', () =>{
+            new_task.classList.add('dragging');
+        })
+        new_task.addEventListener('dragend', () => {
+            let drag_item = document.querySelector('.dragging');
+            let new_list = drag_item.parentElement;
+            //let to_move = to_do_array[old_list.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 1);
+            update_dom_index(new_list);
+            update_dom_index(old_list);
+            //to_do_array[body.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 0, to_move);
+            //console.log(to_do_array[body.getAttribute('to_do_index')][drag_item.getAttribute('index')]);
+            console.log(new_list);
+            console.log(old_list);
+            new_task.classList.remove('dragging');
+        })
         body.appendChild(new_task);
         
         let delete_button = new_task.querySelector('.delete');
@@ -68,7 +95,6 @@ function create_day_dom(day, weekday) {
         index++;
     })
     list.appendChild(body);
-
     let add_task =  create_element_with_class('button', 'add_task');
     add_task.innerHTML = 'Add new task';
     add_task.addEventListener('click', () => {
@@ -135,17 +161,20 @@ function display_task_dialog()
     return dialog;
 }
 
-function display_all(todo_array, titles, body) {
+function display_all(todo_array, titles, body, array_identifier) {
     let new_content =  create_element_with_class('div', 'content');
 
     let content = document.querySelector('.content');
     content.remove();
-    let i = 0;
-    todo_array.forEach (task => {
-        let to_add = create_day_dom(task, titles[i]);
+    for (let i = 0; i < todo_array.length; i++)
+    {
+        let to_add;
+        if (titles.length > 1) 
+            to_add = create_day_dom(todo_array[i], titles[i][0], todo_array, i);
+        else
+            to_add = create_day_dom(todo_array[i], titles[i], todo_array, i);
         new_content.appendChild(to_add);
-        i++;
-    })
+    }
     body.appendChild(new_content);
 }
 
@@ -204,4 +233,17 @@ function update_dom_index(list_dom)
     })
 }
 
-export {display_one, display_all, new_to_do};
+function get_drag_after_element(container, y) {
+    const draggableElements = [...container.querySelectorAll('.task:not(.dragging)')];
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+        }, {offset: Number.NEGATIVE_INFINITY}).element;
+    };
+
+export {display_one, display_all, new_to_do, get_drag_after_element};
