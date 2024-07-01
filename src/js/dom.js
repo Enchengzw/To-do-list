@@ -34,13 +34,12 @@ function create_day_dom(to_do, to_do_title, to_do_array, to_do_index) {
     list.appendChild(title);
 
     let body =  create_element_with_class('div', 'task_list');
-    let old_list;
+    var old_list;
     body.setAttribute('to_do_index', to_do_index);
     body.addEventListener('dragover', event => {
         event.preventDefault();
         let afterElement = get_drag_after_element(body, event.clientY);
         let drag_item = document.querySelector('.dragging');
-        old_list = drag_item.parentElement;
         if (afterElement == null) {
             body.appendChild(drag_item);
         } else {
@@ -53,18 +52,17 @@ function create_day_dom(to_do, to_do_title, to_do_array, to_do_index) {
         new_task.setAttribute('index', index);
         new_task.addEventListener('dragstart', () =>{
             new_task.classList.add('dragging');
+            old_list = new_task.parentElement;
         })
         new_task.addEventListener('dragend', () => {
             let drag_item = document.querySelector('.dragging');
             let new_list = drag_item.parentElement;
-            //let to_move = to_do_array[old_list.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 1);
+            let to_move = to_do_array[old_list.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 1);
             update_dom_index(new_list);
             update_dom_index(old_list);
-            //to_do_array[body.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 0, to_move);
-            //console.log(to_do_array[body.getAttribute('to_do_index')][drag_item.getAttribute('index')]);
-            console.log(new_list);
-            console.log(old_list);
+            to_do_array[new_list.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 0, to_move[0]);
             new_task.classList.remove('dragging');
+            console.log(to_do_array);
         })
         body.appendChild(new_task);
         
@@ -88,7 +86,7 @@ function create_day_dom(to_do, to_do_title, to_do_array, to_do_index) {
             title.value = task.title;
             description.value = task.description;
             submit.addEventListener('click', () =>{
-                modify_task(day, dialog, new_task);
+                modify_task(to_do, dialog, new_task);
             });
             dialog.showModal();
         })

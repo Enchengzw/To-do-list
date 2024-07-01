@@ -51,7 +51,7 @@ function Task(title, description, dueDate, priority, status) {
     return {title, description, dueDate, priority, status};
 }
 
-week_tasks.push([Task('000000000testssssssssss ss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssss', 'test', startOfToday(), 'low', 'done')]);
+week_tasks.push([Task('000000000testssss', 'test', startOfToday(), 'low', 'done')]);
 week_tasks[0].push(Task('00000000test', 'test', startOfToday(), 'low', 'done'));
 week_tasks.push([Task('1111111test', 'test', startOfToday(), 'low', 'done')]);
 week_tasks.push([Task('222222test', 'test', startOfToday(), 'low', 'done')]);
