@@ -15,6 +15,10 @@ const week_tasks = [];
 const projects_titles = [];
 const projects = [];
 
+var week_json = "";
+var projects_json = "";
+var projects_titles_json = "";
+
 function choose_day(integer)
 {
     switch (integer) {
@@ -41,7 +45,6 @@ function next_days() {
     for(let i=0;i < 7; i++)
     {
         week.push([choose_day(day.getDay())]);
-        week[i].push(day);
         day = addDays(day, 1);
     }
     return week;
@@ -62,19 +65,20 @@ week_tasks.push([Task('6666666666666test', 'test', startOfToday(), 'low', 'done'
 
 
 This_week.addEventListener('click', () => {
-    display_all(week_tasks, week, body);
+    display_all(week_tasks, week, body, week_json);
 });
 
 Today.addEventListener('click', () => {
-    display_one(week_tasks[0], week[0][0], body);
+    display_one(week_tasks[0], week[0][0], body, week_json);
 });
 
-add_button.addEventListener('click', () => {
-    new_to_do(projects, projects_titles, project_list, body);
+add_button.addEventListener('click', event => {
+    event.stopPropagation();
+    new_to_do(projects, projects_titles, project_list, body, projects_json, projects_titles_json);
 })
 
 my_projects.addEventListener('click', () => {
-  display_all(projects, projects_titles, body);
+  display_all(projects, projects_titles, body, projects_json, projects_titles_json);
 })
 
 export {Task}
