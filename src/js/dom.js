@@ -79,11 +79,11 @@ function create_to_do_dom(to_do, to_do_title, to_do_array, to_do_index, tasks_da
 
         delete_button.addEventListener('click', (event) => {
             event.stopPropagation();
-            setDeleteTask(new_task, to_do, body, to_do_array, tasks_data, data_identifier);
+            setDeleteTask(new_task, to_do, to_do_array, tasks_data, data_identifier);
         })
 
         new_task.setAttribute('index', index);
-        setDragandDrop(new_task, to_do_array, tasks_data);
+        setDragandDrop(new_task, to_do_array, tasks_data, data_identifier);
         body.appendChild(new_task);
 
         new_task.addEventListener('click', () => {
@@ -162,7 +162,7 @@ function setDeleteTab(tab_dom, to_do_array, to_do_title_array, to_do_dom_list, t
     localStorage.setItem(data_identifier, tasks_data);
     localStorage.setItem('projects_titles', to_do_titles_data);
     update_dom_index(to_do_dom_list);
-    display_all(to_do_array, to_do_title_array, body, tasks_data, data_identifier);
+    display_all(to_do_array, to_do_title_array, tasks_data, data_identifier);
 }
 
 function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier, index_attr)
@@ -173,12 +173,12 @@ function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, tasks
 
     delete_button.addEventListener('click', event => {
         event.stopPropagation();
-        setDeleteTab(new_tab, to_do_array, to_do_title_array, body, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier);
+        setDeleteTab(new_tab, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier);
     })
 
     new_tab.addEventListener('click', () => {
         let index = new_tab.getAttribute('index');
-        display_one(to_do_array[index], to_do_title_array[index], body, to_do_array, tasks_data, data_identifier);
+        display_one(to_do_array[index], to_do_title_array[index], to_do_array, tasks_data, data_identifier);
     });
     to_do_dom_list.appendChild(new_tab);
     new_tab.setAttribute('index', index_attr);
@@ -193,7 +193,7 @@ function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, tasks_data, t
     body.appendChild(dialog);
     dialog.showModal();
     submit.addEventListener('click', () => {
-        create_tab(title.value, to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier, to_do_array.length);
+        create_tab(title.value, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier, to_do_array.length);
         to_do_title_array.push(title.value);
         to_do_array.push([]);
         dialog.remove();

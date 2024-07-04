@@ -93,7 +93,7 @@ add_button.addEventListener('click', event => {
 })
 
 my_projects.addEventListener('click', () => {
-  display_all(projects, projects_titles, projects_json, projects_titles_json, 'projects');
+  display_all(projects, projects_titles, projects_json, 'projects');
 })
 
 export {Task}
