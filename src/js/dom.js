@@ -83,7 +83,7 @@ function create_to_do_dom(to_do, to_do_title, to_do_array, to_do_index, tasks_da
         })
 
         new_task.setAttribute('index', index);
-        setDragandDrop(new_task, to_do_array, tasks_data, data_identifier);
+        setDragandDrop(new_task, to_do_array, tasks_data);
         body.appendChild(new_task);
 
         new_task.addEventListener('click', () => {
@@ -193,7 +193,7 @@ function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, tasks_data, t
     body.appendChild(dialog);
     dialog.showModal();
     submit.addEventListener('click', () => {
-        create_tab(title.value, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier, to_do_array.length);
+        create_tab(title.value, to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier, to_do_array.length);
         to_do_title_array.push(title.value);
         to_do_array.push([]);
         dialog.remove();
