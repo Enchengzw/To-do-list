@@ -138,7 +138,7 @@ function display_one(to_do_tasks, to_do_title, body, to_do_array, tasks_data, da
     body.appendChild(new_content);
 }
 
-function create_tab(title)
+function create_tab_dom(title)
 {
     let new_tab =  create_element_with_class('div', 'project_item');
     let dom_title = create_element_with_class('div', 'project_title');
@@ -149,6 +149,37 @@ function create_tab(title)
     return new_tab;
 }
 
+function setDeleteTab(tab_dom, to_do_array, to_do_title_array, body, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier)
+{
+    to_do_array.splice(tab_dom.getAttribute('index'), 1);
+    to_do_title_array.splice(tab_dom.getAttribute('index'), 1);
+    tab_dom.remove();
+    tasks_data = JSON.stringify(to_do_array);
+    to_do_titles_data = JSON.stringify(to_do_title_array);
+    localStorage.setItem(data_identifier, tasks_data);
+    localStorage.setItem('projects_titles', to_do_titles_data);
+    update_dom_index(to_do_dom_list);
+    display_all(to_do_array, to_do_title_array, body, tasks_data, data_identifier);
+}
+
+function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier, index_attr)
+{
+    let new_tab = create_tab_dom(title);
+    let delete_button = new_tab.querySelector('.delete_to_do')
+
+    delete_button.addEventListener('click', event => {
+        event.stopPropagation();
+        setDeleteTab(new_tab, to_do_array, to_do_title_array, body, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier);
+    })
+
+    new_tab.addEventListener('click', () => {
+        let index = new_tab.getAttribute('index');
+        display_one(to_do_array[index], to_do_title_array[index], body, to_do_array, tasks_data, data_identifier);
+    });
+    to_do_dom_list.appendChild(new_tab);
+    new_tab.setAttribute('index', index_attr);
+}
+
 function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier)
 {
     let dialog = new_to_do_dialog();
@@ -157,35 +188,9 @@ function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, body, tasks_d
     body.appendChild(dialog);
     dialog.showModal();
     submit.addEventListener('click', () => {
-        let new_tab = create_tab(title.value);
-        let delete_button = new_tab.querySelector('.delete_to_do')
-
-        delete_button.addEventListener('click', event => {
-            event.stopPropagation();
-            to_do_array.splice(new_tab.getAttribute('index'), 1);
-            to_do_title_array.splice(new_tab.getAttribute('index'), 1);
-            new_tab.remove();
-            update_dom_index(to_do_dom_list);
-            tasks_data = JSON.stringify(to_do_array);
-            to_do_titles_data = JSON.stringify(to_do_title_array);
-            localStorage.setItem(data_identifier, tasks_data);
-            localStorage.setItem('projects_titles', to_do_titles_data);
-            display_all(to_do_array, to_do_title_array, body, tasks_data);
-        })
-
-        to_do_dom_list.appendChild(new_tab);
+        create_tab(title.value, to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier, to_do_array.length);
         to_do_title_array.push(title.value);
-        new_tab.setAttribute('index', to_do_array.length);
         to_do_array.push([]);
-
-        new_tab.addEventListener('click', () => {
-            let index = new_tab.getAttribute('index');
-            console.log(to_do_array);
-            console.log(index);
-            console.log(to_do_array[index]);
-            display_one(to_do_array[index], to_do_title_array[index], body, to_do_array, tasks_data, data_identifier);
-        });
-
         dialog.remove();
         tasks_data = JSON.stringify(to_do_array);
         to_do_titles_data = JSON.stringify(to_do_title_array);
@@ -194,4 +199,4 @@ function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, body, tasks_d
     })
 }
 
-export {display_one, display_all, new_to_do, get_drag_after_element, update_dom_index, create_element_with_class, modify_task, create_task_dom, setDeleteTask};
+export {display_one, display_all, new_to_do, get_drag_after_element, update_dom_index, create_element_with_class, modify_task, create_task_dom, setDeleteTask, create_tab};
