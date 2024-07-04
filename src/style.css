@@ -121,7 +121,7 @@ body {
 	max-width: 75%;
 }
 
-.delete_todo {
+.delete_to_do {
 	height: 20px;
 	width: 20px;
 	padding-top: 5px;
@@ -235,7 +235,7 @@ div.task_item {
 	border-style: none;
 }
 
-.todo_dialog {
+.to_do_dialog {
 	border-style: none;
 	display: flex;
 	padding: 10px;

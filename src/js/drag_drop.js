@@ -16,7 +16,7 @@ function setDragandDrop(task_dom, to_do_array, tasks_data)
         to_do_array[new_list.getAttribute('to_do_index')].splice(drag_item.getAttribute('index'), 0, to_move[0]);
         task_dom.classList.remove('dragging');
         tasks_data = JSON.stringify(to_do_array);
-        console.log(to_do_array);
+        localStorage.setItem(data_identifier, tasks_data);
     })
 }
 

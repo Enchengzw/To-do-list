@@ -1,5 +1,6 @@
-import {create_element_with_class , modify_task} from "./dom.js";
+import {create_element_with_class, create_task_dom, setDeleteTask} from "./dom.js";
 import { Task } from "./index.js";
+import { setDragandDrop } from "./drag_drop.js";
 
 function display_task_dialog()
 {
@@ -26,9 +27,9 @@ function display_task_dialog()
 
 function new_to_do_dialog()
 {
-    let dialog =  create_element_with_class('dialog', 'todo_dialog');
+    let dialog =  create_element_with_class('dialog', 'to_do_dialog');
 
-    let title =  create_element_with_class('input', 'todo_title');
+    let title =  create_element_with_class('input', 'to_do_title');
 
     var submit =  create_element_with_class('input', 'dialog_close');
     submit.type = 'submit';
@@ -36,7 +37,7 @@ function new_to_do_dialog()
     return dialog;
 }
 
-function display_task(to_do, task_dom, to_do_array, tasks_data)
+function display_task(to_do, task_dom, to_do_array, tasks_data, data_identifier)
 {
     let dialog = display_task_dialog();
     let document_body = document.body;
@@ -51,6 +52,7 @@ function display_task(to_do, task_dom, to_do_array, tasks_data)
     submit.addEventListener('click', () =>{
         modify_task(to_do, dialog, task_dom);
         tasks_data = JSON.stringify(to_do_array);
+        localStorage.setItem(data_identifier, tasks_data)
     });
     dialog.showModal();
 }
@@ -72,7 +74,12 @@ function add_new_task(task_array, list_dom, dialog, to_do_array, tasks_data)
     dom_task.setAttribute('index', task_array.length);
     setDragandDrop(dom_task, to_do_array, tasks_data);
     dom_task.addEventListener('click', () => {
-        display_task(to_do, dom_task, to_do_array, tasks_data);
+        display_task(task_array, dom_task, to_do_array, tasks_data);
+    })
+    let delete_button = dom_task.querySelector('.delete');
+    delete_button.addEventListener('click', event => {
+        event.stopPropagation();
+        setDeleteTask(dom_task, task_array, list_dom, to_do_array, tasks_data);
     })
     list_dom.appendChild(dom_task);
     dialog.remove();
