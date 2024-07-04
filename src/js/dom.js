@@ -114,7 +114,8 @@ function create_to_do_dom(to_do, to_do_title, to_do_array, to_do_index, tasks_da
     return list;
 }
 
-function display_all(to_do_array, titles, body, tasks_data, data_identifier) {
+function display_all(to_do_array, titles, tasks_data, data_identifier) {
+    let body = document.body;
     let new_content =  create_element_with_class('div', 'content');
 
     let content = document.querySelector('.content');
@@ -127,8 +128,9 @@ function display_all(to_do_array, titles, body, tasks_data, data_identifier) {
     body.appendChild(new_content);
 }
  
-function display_one(to_do_tasks, to_do_title, body, to_do_array, tasks_data, data_identifier)
+function display_one(to_do_tasks, to_do_title, to_do_array, tasks_data, data_identifier)
 {
+    let body = document.body;
     let new_content =  create_element_with_class('div', 'content');
 
     let content = document.querySelector('.content');
@@ -149,8 +151,9 @@ function create_tab_dom(title)
     return new_tab;
 }
 
-function setDeleteTab(tab_dom, to_do_array, to_do_title_array, body, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier)
+function setDeleteTab(tab_dom, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier)
 {
+    let body = document.body;
     to_do_array.splice(tab_dom.getAttribute('index'), 1);
     to_do_title_array.splice(tab_dom.getAttribute('index'), 1);
     tab_dom.remove();
@@ -162,8 +165,9 @@ function setDeleteTab(tab_dom, to_do_array, to_do_title_array, body, to_do_dom_l
     display_all(to_do_array, to_do_title_array, body, tasks_data, data_identifier);
 }
 
-function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier, index_attr)
+function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier, index_attr)
 {
+    let body = document.body;
     let new_tab = create_tab_dom(title);
     let delete_button = new_tab.querySelector('.delete_to_do')
 
@@ -180,8 +184,9 @@ function create_tab(title, to_do_array, to_do_title_array, to_do_dom_list, body,
     new_tab.setAttribute('index', index_attr);
 }
 
-function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, body, tasks_data, to_do_titles_data, data_identifier)
+function new_to_do(to_do_array, to_do_title_array, to_do_dom_list, tasks_data, to_do_titles_data, data_identifier)
 {
+    let body = document.body;
     let dialog = new_to_do_dialog();
     let submit = dialog.querySelector('.dialog_close');
     let title = dialog.querySelector('.to_do_title');

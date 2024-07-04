@@ -73,27 +73,27 @@ function initialize(week_tasks, projects, projects_titles)
     initialize_one(projects, 'projects');
     initialize_one(projects_titles, 'projects_titles');
     for(let i = 0; i < projects.length; i++){
-        create_tab(projects_titles[i], projects, projects_titles, project_list, body, projects_json, projects_titles_json, 'projects', i);
+        create_tab(projects_titles[i], projects, projects_titles, project_list, projects_json, projects_titles_json, 'projects', i);
     }
 }
 
 initialize(week_tasks, projects, projects_titles);
 
 This_week.addEventListener('click', () => {
-    display_all(week_tasks, week, body, week_json, 'week');
+    display_all(week_tasks, week, week_json, 'week');
 });
 
 Today.addEventListener('click', () => {
-    display_one(week_tasks[0], week[0], body, week_tasks, week_json, 'week');
+    display_one(week_tasks[0], week[0], week_tasks, week_json, 'week');
 });
 
 add_button.addEventListener('click', event => {
     event.stopPropagation();
-    new_to_do(projects, projects_titles, project_list, body, projects_json, projects_titles_json, 'projects');
+    new_to_do(projects, projects_titles, project_list, projects_json, projects_titles_json, 'projects');
 })
 
 my_projects.addEventListener('click', () => {
-  display_all(projects, projects_titles, body, projects_json, projects_titles_json, 'projects');
+  display_all(projects, projects_titles, projects_json, projects_titles_json, 'projects');
 })
 
 export {Task}
